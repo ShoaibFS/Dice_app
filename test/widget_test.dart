@@ -29,4 +29,43 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('Dark mode'), findsOneWidget);
   });
+
+  testWidgets('Bottom nav routes to History and Settings', (WidgetTester tester) async {
+    SharedPreferences.setMockInitialValues({});
+    await tester.pumpWidget(const ProviderScope(child: DiceLabApp()));
+    await tester.pumpAndSettle();
+
+    // Navigate to History and verify placeholder
+    await tester.tap(find.byIcon(Icons.history_outlined));
+    await tester.pumpAndSettle();
+    expect(find.text('No rolls yet. Tap Roll to get started!'), findsOneWidget);
+
+    // Navigate to Settings and verify toggle exists
+    await tester.tap(find.byIcon(Icons.settings_outlined));
+    await tester.pumpAndSettle();
+    expect(find.text('Dark mode'), findsOneWidget);
+  });
+
+  testWidgets('Rolling dice adds to history list', (WidgetTester tester) async {
+    SharedPreferences.setMockInitialValues({});
+    await tester.pumpWidget(const ProviderScope(child: DiceLabApp()));
+    await tester.pumpAndSettle();
+
+    // Roll the dice twice
+    final rollButton = find.widgetWithIcon(FilledButton, Icons.casino);
+    expect(rollButton, findsOneWidget);
+    await tester.tap(rollButton);
+    await tester.pumpAndSettle();
+    await tester.tap(rollButton);
+    await tester.pumpAndSettle();
+
+    // Navigate to History and verify entries exist
+    await tester.tap(find.byIcon(Icons.history_outlined));
+    await tester.pumpAndSettle();
+    expect(find.text('No rolls yet. Tap Roll to get started!'), findsNothing);
+    final rolledFinder = find.byWidgetPredicate(
+      (w) => w is Text && w.data != null && w.data!.startsWith('Rolled '),
+    );
+    expect(rolledFinder, findsWidgets);
+  });
 }
