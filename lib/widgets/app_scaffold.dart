@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class AppScaffold extends StatelessWidget {
-  const AppScaffold({super.key, required this.child});
+  const AppScaffold({super.key, required this.child, required this.location});
 
   final Widget child;
+  final String location;
 
   int _locationToIndex(String location) {
     if (location.startsWith('/history')) return 1;
@@ -28,7 +29,6 @@ class AppScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final location = GoRouter.of(context).location;
     final selectedIndex = _locationToIndex(location);
 
     return Scaffold(

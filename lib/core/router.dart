@@ -11,7 +11,10 @@ final appRouterProvider = Provider<GoRouter>((ref) {
     initialLocation: '/',
     routes: [
       ShellRoute(
-        builder: (context, state, child) => AppScaffold(child: child),
+        builder: (context, state, child) => AppScaffold(
+          child: child,
+          location: state.matchedLocation,
+        ),
         routes: [
           GoRoute(
             path: '/',
