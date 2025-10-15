@@ -1,30 +1,58 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:first_app/main.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  testWidgets('App launches successfully', (WidgetTester tester) async {
+    // Build our app and trigger a frame
+    await tester.pumpWidget(
+      const ProviderScope(
+        child: MyApp(),
+      ),
+    );
+    
+    // Wait for initial render
+    await tester.pumpAndSettle();
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
-
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
-
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    // Verify that the app title is present
+    expect(find.text('Pro Dice Roller'), findsOneWidget);
+    
+    // Verify that navigation bar is present
+    expect(find.byType(NavigationBar), findsOneWidget);
+    
+    // Verify that Roll button is present
+    expect(find.text('Roll Dice'), findsOneWidget);
+  });
+  
+  testWidgets('Navigation works correctly', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const ProviderScope(
+        child: MyApp(),
+      ),
+    );
+    
+    await tester.pumpAndSettle();
+    
+    // Tap on History tab
+    await tester.tap(find.text('History'));
+    await tester.pumpAndSettle();
+    
+    // Verify we're on History screen
+    expect(find.text('Roll History'), findsOneWidget);
+    
+    // Tap on Statistics tab
+    await tester.tap(find.text('Statistics'));
+    await tester.pumpAndSettle();
+    
+    // Verify we're on Statistics screen
+    expect(find.text('Statistics'), findsOneWidget);
+    
+    // Go back to Roll tab
+    await tester.tap(find.text('Roll'));
+    await tester.pumpAndSettle();
+    
+    // Verify we're back on Roll screen
+    expect(find.text('Roll Dice'), findsOneWidget);
   });
 }
