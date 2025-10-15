@@ -1,15 +1,10 @@
 
 import 'package:flutter/material.dart';
-import 'package:first_app/gradient_container.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:dicelab/app.dart';
 
 void main() {
-  runApp(
-    MaterialApp(
-      home:Scaffold(
-        body: GradientContainer([ Colors.deepPurple, Colors.black])
-      ),
-    ),
-  );
+  runApp(const ProviderScope(child: DiceLabApp()));
 }
 
 

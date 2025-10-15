@@ -1,20 +1,39 @@
-Flutter Dice App 🎲
+DiceLab – Professional Flutter Dice Simulator 🎲
 
-This Flutter project is a simple dice application that simulates the rolling of two dice. It consists of just one page and three files, making it easy to understand and modify.
+DiceLab is a polished, production-grade, multi-platform Flutter app showcasing modern architecture, animations, routing, and state management. Ideal for portfolio demos and real-world distribution.
 
-Features
+Key features
 
-Simple Interface: A clean and intuitive user interface designed for easy navigation.
-Random Dice Roll: Tap on the dice image to roll and get random results on each die.
-Realistic Animation: Enjoy realistic dice rolling animations for an immersive experience.
-Files
+- Professional Material 3 UI, light/dark themes with Google Fonts
+- Riverpod state management with persistent settings (theme) and roll history
+- GoRouter navigation with bottom navigation shell (Home, History, Settings)
+- Roll animation and accessible controls
+- Multi-platform ready (Android, iOS, Web, Desktop)
 
-dice.dart: Contains the main application code, including the main function and the app's entry point.
-gradient_controller.dart: Defines the gradient controller for managing gradient animation effects.
-dice_roller.dart: Implements the logic for rolling the dice and updating the UI with random values.
-Getting Started To run this application:
+Architecture
 
-Ensure you have Flutter installed. If not, follow the installation instructions here.
-Clone this repository to your local machine.
-Open the project in your preferred IDE.
-Run the app on an emulator or physical device using flutter run.
+- `lib/core`: router, app-wide providers, persistence
+- `lib/features`: feature-first modules (`home`, `history`, `settings`)
+- `lib/widgets`: shared UI widgets (scaffold)
+
+Development
+
+```bash
+flutter pub get
+flutter run -d chrome  # or android/ios/desktop
+```
+
+Testing
+
+```bash
+flutter test
+```
+
+Branding
+
+- Android label: DiceLab
+- iOS display/name: DiceLab
+
+Notes
+
+- This project uses Material 3 and requires Flutter 3.19+.
