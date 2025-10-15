@@ -28,7 +28,7 @@ class AppScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final location = GoRouter.of(context).location;
+    final location = GoRouterState.of(context).matchedLocation;
     final selectedIndex = _locationToIndex(location);
 
     return Scaffold(
